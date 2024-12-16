@@ -12,3 +12,30 @@ An MCP server for [cognee](https://www.cognee.ai/), an AI memory engine.
     - `graph_model_name` (String, optional): Class name of a custom pydantic graph model implementation
   - Output:
     - Retrieved edges of the knowledge graph
+
+## Configuration
+### Usage with Claude Desktop
+
+Add this to your claude_desktop_config.json:
+<details>
+```
+"mcpcognee": {
+  "command": "uv",
+  "args": [
+    "--directory",
+    "/Users/ritaaleksziev/mcp/cognee-mcp-server",
+    "run",
+    "mcpcognee"
+  ],
+  "env": {
+    "ENV": "local",
+    "TOKENIZERS_PARALLELISM": "false",
+    "LLM_API_KEY": “your llm api key”,
+    "GRAPH_DATABASE_PROVIDER": “networkx”,
+    "VECTOR_DB_PROVIDER": "lancedb",
+    "DB_PROVIDER": "sqlite",
+    "DB_NAME": “cognee_db”
+  }
+}
+```
+</details>
