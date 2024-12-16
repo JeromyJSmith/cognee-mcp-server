@@ -18,12 +18,14 @@ An MCP server for [cognee](https://www.cognee.ai/), an AI memory engine.
 
 Add this to your claude_desktop_config.json:
 <details>
+<summary>Using uvx</summary>
+
 ```
 "mcpcognee": {
   "command": "uv",
   "args": [
     "--directory",
-    "/Users/ritaaleksziev/mcp/cognee-mcp-server",
+    "/path/to/your/cognee-mcp-server",
     "run",
     "mcpcognee"
   ],
