@@ -16,6 +16,7 @@ An MCP server for [cognee](https://www.cognee.ai/), an AI memory engine.
 ## Configuration
 ### Usage with Claude Desktop
 
+Install uv with homebrew.
 Add this to your claude_desktop_config.json:
 <details>
 <summary>Using uvx</summary>
