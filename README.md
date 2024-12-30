@@ -1,45 +1,85 @@
-# cognee-mcp-server
+# cognee MCP server
 
-An MCP server for [cognee](https://www.cognee.ai/), an AI memory engine.
 
-## Tools
 
-- `Cognify_and_search` : Builds knowledge graph from the input text and performs search in it.
-  - Inputs:
-    - `text` (String): Context for knowledge graph contstruction
-    - `search_query` (String): Query for retrieval
-    - `graph_model_file` (String, optional): Filename of a custom pydantic graph model implementation
-    - `graph_model_name` (String, optional): Class name of a custom pydantic graph model implementation
-  - Output:
-    - Retrieved edges of the knowledge graph
 
-## Configuration
-### Usage with Claude Desktop
+### Installing Manually
+A MCP server project
+=======
+1. Clone the [cognee](www.github.com/topoteretes/cognee) repo
 
-Install uv with homebrew.
 
-Add this to your claude_desktop_config.json:
-<details>
-<summary>Using uvx</summary>
+
+2. Install dependencies
 
 ```
-"mcpcognee": {
-  "command": "uv",
-  "args": [
-    "--directory",
-    "/path/to/your/cognee-mcp-server",
-    "run",
-    "mcpcognee"
-  ],
-  "env": {
-    "ENV": "local",
-    "TOKENIZERS_PARALLELISM": "false",
-    "LLM_API_KEY": “your llm api key”,
-    "GRAPH_DATABASE_PROVIDER": “networkx”,
-    "VECTOR_DB_PROVIDER": "lancedb",
-    "DB_PROVIDER": "sqlite",
-    "DB_NAME": “cognee_db”
-  }
+pip install uv
+```
+```
+brew install postgresql
+```
+
+```
+brew install rust
+```
+
+```jsx
+cd cognee-mcp
+uv sync --dev --all-extras
+```
+
+3. Activate the venv with
+
+```jsx
+source .venv/bin/activate
+```
+
+4. Add the new server to your Claude config:
+
+The file should be located here: ~/Library/Application\ Support/Claude/
+You need to create claude_desktop_config.json in this folder if it doesn't exist
+
+```
+
+
+{
+	"mcpServers": {
+		"cognee": {
+			"command": "/Users/{user}/cognee/.venv/bin/uv",
+			"args": [
+        "--directory",
+        "/Users/{user}/cognee/cognee-mcp",
+        "run",
+        "cognee"
+      ],
+      "env": {
+        "ENV": "local",
+        "TOKENIZERS_PARALLELISM": "false",
+        "LLM_API_KEY": "sk-"
+      }
+		},
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/{user}/Desktop",
+        "/Users/{user}/Projects"
+      ]
+    }
+	}
 }
 ```
-</details>
+
+Restart your Claude desktop.
+
+### Installing via Smithery
+
+To install Cognee for Claude Desktop automatically via [Smithery](https://smithery.ai/server/cognee):
+
+```bash
+npx -y @smithery/cli install cognee --client claude
+```
+
+Define cognify tool in server.py
+Restart your Claude desktop.
